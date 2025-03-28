@@ -1,3 +1,4 @@
+import { FastifyInstance } from 'fastify'
 import fastifyEnv from '@fastify/env'
 
 const schema = {
@@ -9,6 +10,6 @@ const schema = {
   },
 }
 
-export default async function envSetup(fastify) {
+export default async function envSetup(fastify: FastifyInstance) {
   fastify.register(fastifyEnv, { schema, dotenv: true })
 }

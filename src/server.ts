@@ -2,13 +2,19 @@ import 'dotenv/config'
 import Fastify from 'fastify'
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 
-import envSetup from './plugins/env'
-import corsSetup from './plugins/cors'
-import healthRoutes from './routes/health'
-import searchRoutes from './routes/search'
+import envSetup from './plugins/env.js'
+import corsSetup from './plugins/cors.js'
+import healthRoutes from './routes/health.js'
+import searchRoutes from './routes/search.js'
 
 const fastify = Fastify({
   logger: true,
+  ajv: {
+    customOptions: {
+      strict: 'log',
+      keywords: ['kind', 'modifier'],
+    },
+  },
 }).withTypeProvider<TypeBoxTypeProvider>()
 
 // Register plugins

@@ -1,5 +1,5 @@
-import js from '@eslint/js'
-import prettier from 'eslint-plugin-prettier'
+import js from '@eslint/js';
+import prettier from 'eslint-plugin-prettier';
 
 export default [
   js.configs.recommended,
@@ -15,9 +15,9 @@ export default [
       prettier,
     },
     rules: {
-      'prettier/prettier': ['error', { singleQuote: true, semi: false }],
+      'prettier/prettier': ['error', { singleQuote: true, semi: true }],
       'no-console': 'warn',
       'no-unused-vars': ['warn'],
     },
   },
-]
+];

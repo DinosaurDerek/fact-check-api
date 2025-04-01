@@ -1,5 +1,5 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { Type } from '@sinclair/typebox'
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { Type } from '@sinclair/typebox';
 
 export default async function healthRoutes(fastify: FastifyInstance) {
   const HealthSchema = {
@@ -8,7 +8,7 @@ export default async function healthRoutes(fastify: FastifyInstance) {
         status: Type.String(),
       }),
     },
-  }
+  };
 
   fastify.get(
     '/health',
@@ -16,7 +16,7 @@ export default async function healthRoutes(fastify: FastifyInstance) {
       schema: HealthSchema,
     },
     async (_request: FastifyRequest, _reply: FastifyReply) => {
-      return { status: 'ok' }
+      return { status: 'ok' };
     }
-  )
+  );
 }

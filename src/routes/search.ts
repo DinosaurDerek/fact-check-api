@@ -1,13 +1,15 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { Type } from '@sinclair/typebox';
 
+import { fetchFacts } from '../api/index.js';
 import { authenticate } from '../middlewares/authMiddleware.js';
+import { FactCheckSchema } from '../types/FactCheck.js';
 
 export default async function searchRoutes(fastify: FastifyInstance) {
   const SearchSchema = {
     response: {
       200: Type.Object({
-        message: Type.String(),
+        results: Type.Array(FactCheckSchema),
       }),
     },
   };
@@ -15,8 +17,16 @@ export default async function searchRoutes(fastify: FastifyInstance) {
   fastify.get(
     '/search',
     { preHandler: authenticate, schema: SearchSchema },
-    async (_request: FastifyRequest, _reply: FastifyReply) => {
-      return { message: 'Fastify API is running!' };
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const { query } = request.query as { query?: string };
+
+      if (!query) {
+        return reply.status(400).send({ error: 'Query parameter is required' });
+      }
+
+      const results = await fetchFacts(query);
+
+      return reply.send({ results });
     }
   );
 }

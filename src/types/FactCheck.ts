@@ -6,4 +6,8 @@ export const FactCheckSchema = Type.Object({
   reviewDate: Type.Optional(Type.String()),
   rating: Type.Optional(Type.String()),
   url: Type.Optional(Type.String()),
+  // verdict
+  // score
+  // summary
+  // sources
 });
